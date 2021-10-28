@@ -5,19 +5,19 @@
   
 
   
-  <title>day_02 | Hexo</title>
+  <title>noteOFpaper | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="nihao">
+  <meta name="description" content="Audio Fingerprint Extraction Based on Locally Linear Embedding for Audio Retrieval System提出问题: 大量的音频指纹数据占据了大量的存储空间和影响硬盘提取速率  解决方法： 具有更小的指纹和提取效率更高的基于局部线性嵌入（locally linear embedding– LLE）的方法（该方法是将频域中的每个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="day_02">
-<meta property="og:url" content="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/10/28/day-02/index.html">
+<meta property="og:title" content="noteOFpaper">
+<meta property="og:url" content="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/10/07/noteOFpaper/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="nihao">
+<meta property="og:description" content="Audio Fingerprint Extraction Based on Locally Linear Embedding for Audio Retrieval System提出问题: 大量的音频指纹数据占据了大量的存储空间和影响硬盘提取速率  解决方法： 具有更小的指纹和提取效率更高的基于局部线性嵌入（locally linear embedding– LLE）的方法（该方法是将频域中的每个">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-28T14:02:03.000Z">
-<meta property="article:modified_time" content="2021-10-28T14:19:18.655Z">
+<meta property="article:published_time" content="2021-10-07T01:28:58.000Z">
+<meta property="article:modified_time" content="2021-10-28T14:21:49.454Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="21_day_topic">
+<meta property="article:tag" content="Paper_Note">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="https://zxs94rfpy.github.io/atom.xml" title="Hexo" type="application/atom+xml">
@@ -67,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-day-02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-noteOFpaper" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/28/day-02/" class="article-date">
-  <time datetime="2021-10-28T14:02:03.000Z" itemprop="datePublished">2021-10-28</time>
+    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/07/noteOFpaper/" class="article-date">
+  <time datetime="2021-10-07T01:28:58.000Z" itemprop="datePublished">2021-10-07</time>
 </a>
     
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      day_02
+      noteOFpaper
     </h1>
   
 
@@ -89,14 +89,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="nihao"><a href="#nihao" class="headerlink" title="nihao"></a>nihao</h4>
+        <h1 id="Audio-Fingerprint-Extraction-Based-on-Locally-Linear-Embedding-for-Audio-Retrieval-System"><a href="#Audio-Fingerprint-Extraction-Based-on-Locally-Linear-Embedding-for-Audio-Retrieval-System" class="headerlink" title="Audio Fingerprint Extraction Based on Locally Linear Embedding for Audio Retrieval System"></a>Audio Fingerprint Extraction Based on Locally Linear Embedding for Audio Retrieval System</h1><h4 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题:"></a>提出问题:</h4><ul>
+<li>大量的音频指纹数据占据了大量的存储空间和影响硬盘提取速率</li>
+</ul>
+<h4 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h4><ul>
+<li>具有更小的指纹和提取效率更高的基于局部线性嵌入（locally linear embedding– LLE）的方法（该方法是将频域中的每个峰周围的频带分为四组子区域，并计算每个子区域的能量。然后分别对每一组进行LLE分析，并通过比较相邻的能量对音频指纹进行编码）</li>
+</ul>
+<h4 id="两种经典算法"><a href="#两种经典算法" class="headerlink" title="两种经典算法"></a>两种经典算法</h4><ul>
+<li>飞利浦的音频指纹算法（飞利浦和卡尔克提出的）：它通过比较相邻波段的能量来计算指纹。该算法对不同类型的信号退化具有较高的鲁棒性，在音频信号受到干扰时可以保持检索性能。此外，它的短粒度约为3s，这是检索所需的音频段的最小长度。该算法对音频信号的线性速度变化抵抗力较低。</li>
+<li>Shazam指纹技术：利用时间和频率信息对每两个谱极大值之间的关系进行编码。它在噪声条件下获得了更好的鲁棒性，但在编码中使用了大量的位，从而降低了检索速度。</li>
+</ul>
+<h4 id="站在两种经典算法肩膀上的一种算法"><a href="#站在两种经典算法肩膀上的一种算法" class="headerlink" title="站在两种经典算法肩膀上的一种算法"></a>站在两种经典算法肩膀上的一种算法</h4><ul>
+<li>Masked Audio Spectral Keypoints(MASK)：该算法在选定的显著光谱点周围建立区域，并通过比较带能生成二元指纹。虽然它具有良好的音频检索功能，但其指纹尺寸有进一步减少的空间。</li>
+</ul>
+<h4 id="站在MASK肩膀上的算法"><a href="#站在MASK肩膀上的算法" class="headerlink" title="站在MASK肩膀上的算法"></a>站在MASK肩膀上的算法</h4><ul>
+<li>使用LLE来减少子区域能量的数量，并通过比较能量来减少反应指纹的维数</li>
+<li>引入基于动态时间翘曲(DTW)</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/10/28/day-02/" data-id="ckvb17t040000bsqnaeit6yj7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/10/07/noteOFpaper/" data-id="ckvb1ccin00003kqnb37y3cms" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/21-day-topic/" rel="tag noopener">21_day_topic</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/Paper-Note/" rel="tag noopener">Paper_Note</a></li></ul>
 
     </footer>
   </div>
@@ -104,10 +121,19 @@
     
 <nav id="article-nav">
   
+    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/28/day-02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          day_02
+        
+      </div>
+    </a>
   
-    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/07/noteOFpaper/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/06/my-blog/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">noteOFpaper</div>
+      <div class="article-nav-title">my-blog</div>
     </a>
   
 </nav>
