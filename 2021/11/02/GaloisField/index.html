@@ -15,7 +15,7 @@
 <meta property="og:description" content="1.有限域的特点有限域是包括有限个元素，能进行加减乘除运算的集合。在实数R上有：  任何数加上0，都是它本身； 任何数乘以1，都是它本身； 任何数减去一个数，相当于加上减数的相反数； 任何数除以一个数（非零），相当于乘上除数的倒数；  效用：四则运算精简为二则运算(加，乘)，为实现上提供便利 元素个数无限的域称为‘无限域’ 2.GF(P)以p&#x3D;7为例 加（add）：  a&amp;oplus;b&#x3D;(a+b">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-02T08:41:03.000Z">
-<meta property="article:modified_time" content="2021-11-02T11:14:25.426Z">
+<meta property="article:modified_time" content="2021-11-02T14:46:03.329Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="encode">
 <meta name="twitter:card" content="summary">
@@ -105,15 +105,15 @@
 <ul>
 <li>减（substract）:称b和(-b)互为‘<strong>加法逆元</strong>’，类似‘相反数’</li>
 </ul>
-<p>a-b=(a-b)(mod7)=(a+(-b))(mod7)</p>
+<p>a&ominus;b=(a-b)(mod7)=(a+(-b))(mod7)</p>
 <ul>
 <li>乘(multiply)：</li>
 </ul>
-<p>a&times;b=(a&times;b)(mod7)</p>
+<p>a&bigotimes;b=(a&times;b)(mod7)</p>
 <ul>
 <li>除（divide）：称b和1/b互为‘乘法逆元’，类似‘倒数’ 。</li>
 </ul>
-<p>a/b=(a&divide;b)(mod7)=(a&times;1/b)(mod7)</p>
+<p>a&oslash;b=(a&divide;b)(mod7)=(a&times;1/b)(mod7)</p>
 <ul>
 <li>node：a，b&euro;GF(7) </li>
 </ul>
@@ -123,10 +123,10 @@
 <p>1&oplus;0=1  ，称0为有限域GF(7)的’<strong>加法单位元</strong>‘</p>
 <p>5&oplus;2=0  ，称5和2互为有限域GF(7)的’加法逆元‘</p>
 <p>5&oplus;5=3  </p>
-<p>3-5=3+2=5   ，’加法逆元‘的应用</p>
-<p>5&times;1=5  ，称1为有限域GF(7)的’<strong>乘法单位元</strong>‘</p>
-<p>3&times;5=1  ，称3和5互为有限域GF(7)的’乘法逆元‘</p>
-<p>6/5=6&times;3=4  ， ’乘法逆元‘的应用。要求除法运算的结果&euro;GF(7) ，故而6除以5和1.2无关</p>
+<p>3&ominus;5=3+2=5   ，’加法逆元‘的应用</p>
+<p>5&bigotimes;1=5  ，称1为有限域GF(7)的’<strong>乘法单位元</strong>‘</p>
+<p>3&bigotimes;5=1  ，称3和5互为有限域GF(7)的’乘法逆元‘</p>
+<p>6/5=6&bigotimes;3=4  ， ’乘法逆元‘的应用。要求除法运算的结果&in;GF(7) ，故而6除以5和1.2无关</p>
 <h3 id="4、GF-2"><a href="#4、GF-2" class="headerlink" title="4、GF(2)"></a>4、GF(2)</h3><ul>
 <li>GF(2)={0,1};</li>
 </ul>
@@ -138,15 +138,123 @@
 <p>从上述例子我们得到：有限域GF（2）的加减法恰恰是位运算中的’异或(XOR)‘。</p>
 <p><strong>异或运算</strong>：也称为半加运算，运算过程中不涉及进位和借位。</p>
 <p>含义：GF(2)的存在，孤立来看，并无太多作用。但因为其元素只有0和1，为有限域GF和二进制契合提供了可能。</p>
-<h3 id="5、小节GF（p）的固有缺陷"><a href="#5、小节GF（p）的固有缺陷" class="headerlink" title="5、小节GF（p）的固有缺陷"></a>5、小节GF（p）的固有缺陷</h3><ul>
+<h3 id="5、小结GF（p）的固有缺陷"><a href="#5、小结GF（p）的固有缺陷" class="headerlink" title="5、小结GF（p）的固有缺陷"></a>5、小结GF（p）的固有缺陷</h3><ul>
 <li>p is a prime number 。（有限域GF(p)中用到的p只能是素数）</li>
 </ul>
 <p>反证法：（用以说明要求p是素数的缘由。）</p>
 <p>​        不妨假设p=10（任意合数均可），元素2和元素5是<strong>不存在’乘法逆元‘的</strong>，因为不存在2乘上某数取模10之后的结果为1（当然5也一样）。这直接导致除以2或者除以5是不存在除法运算的。所以<strong>四则运算有缺陷，不予采用</strong>。</p>
 <p>​        综上，p只能是素数。</p>
 <ul>
-<li>p是素数导致的缺陷：计算机采用2进制，故而$2^k$</li>
+<li>p是素数导致的缺陷：计算机采用2进制，故而$2^k$ (k&in;Z)是很常见的，如256,65536等。$2^k$都不是素数，它的值不能直接赋给p。例如要表示0-255 这256个数，p最合适去251（素数），表示0-250这251个数，多出的部分<strong>不予表示</strong>，成为‘损失’。</li>
 </ul>
+<h3 id="6、关于GF-2-m-，以m-3为例"><a href="#6、关于GF-2-m-，以m-3为例" class="headerlink" title="6、关于GF($2^m$)，以m=3为例"></a>6、关于GF($2^m$)，以m=3为例</h3><ul>
+<li>关于多项式与二进制的关系。不妨以GF($2^3$)为例：<strong>本文出现的所有字母m就是GF($2^m$)中的m</strong>。</li>
+</ul>
+<p>GF($2^3$)={000,  001,  010,  011,  100,    101,  110,        111}</p>
+<p>​            ={    0,      1,      2,       3,      4,         5,       6,            7}</p>
+<p>​            ={    0,      1,      x,   x+1,    $x^2$,  $x^2$+1, $x^2$+x, $x^2$+x+1}</p>
+<p>好处：</p>
+<ol>
+<li>对于很长的二进制，如果写成对应的多项式，非常直观</li>
+<li>二进制与多项式是‘一一对应’的关系。计算机采用二进制，人采用多项式。</li>
+<li>多项式可按照‘一定规则’参与四则运算。</li>
+</ol>
+<h3 id="7、GF-2-3"><a href="#7、GF-2-3" class="headerlink" title="7、GF($2^3$)"></a>7、GF($2^3$)</h3><ul>
+<li><p><strong>转变视角</strong>：数值元素从多项式角度看，用于取模的元素也相应的从多项式的角度看。</p>
+</li>
+<li><p><strong>通过查表</strong>，得到GF($2^3$)用于取模的元素是p(x)=$x^3$+x+1(查表得p(x))。称p(x)为GF($2^3$)的一个‘<strong>本原多项式</strong>’。p(x)的作用类似于GF(p)的作用。</p>
+</li>
+<li><p>Note：’本原多项式’：素多项式或称不可约多项式(irrducible)，</p>
+<p>​                          反例：$x^2$+1=(x+1)(x+1)   (在有限域的条件下，$x^2$+1是可以分解的)</p>
+</li>
+</ul>
+<h3 id="8、有限域生成算法"><a href="#8、有限域生成算法" class="headerlink" title="8、有限域生成算法"></a>8、有限域生成算法</h3><ul>
+<li>本原多项式p(x)=$x^3$+x+1。以$x^i$生成全部元素为例：</li>
+</ul>
+<ol>
+<li>初试集合A={0}；</li>
+<li>将$x^i$mod p(x)的结果放入A中（i从0开始自增1）；</li>
+<li>将i&lt;$2^3$-1=7，重复步骤2；i&geq;$2^3$-1=7，结束。</li>
+</ol>
+<p>Note：集合A中最终有8个元素。</p>
+<h3 id="9、推演GF-2-3-生成过程-p-x-x-3-x-1"><a href="#9、推演GF-2-3-生成过程-p-x-x-3-x-1" class="headerlink" title="9、推演GF($2^3$)生成过程(p(x)=$x^3$+x+1)"></a>9、推演GF($2^3$)生成过程(p(x)=$x^3$+x+1)</h3><ul>
+<li>本原多项式 p(x)=$x^3$+x+1</li>
+<li>过程草稿纸推吧~</li>
+<li>最终A = {0,1,2,3,4,5,6,7}</li>
+</ul>
+<h3 id="10、关于生成过程的思考"><a href="#10、关于生成过程的思考" class="headerlink" title="10、关于生成过程的思考"></a>10、关于生成过程的思考</h3><table>
+<thead>
+<tr>
+<th align="center">取模前</th>
+<th align="center">取模后</th>
+<th align="center">十进制值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$x^0$</td>
+<td align="center">$x^0$</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">$x^1$</td>
+<td align="center">$x^1$</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">$x^2$</td>
+<td align="center">$x^2$</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">$x^3$</td>
+<td align="center">x+1</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">$x^4$</td>
+<td align="center">$x^2$+x</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">$x^5$</td>
+<td align="center">$x^2$+x+1</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center">$x^6$</td>
+<td align="center">$x^2$+1</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="center">$x^7$</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>本原多项式 为p(x)=$x^3$+x+1。特别地，我们把x称为‘<strong>生成元</strong>’</li>
+<li>‘<strong>生成元</strong>’：g是生成元if and only if &exist;k, &forall;非零元素a&in;GF ,then a=$g^k$;此处生成元<strong>g=x</strong></li>
+<li>元素0无法用生成元g表出，生成元表出的元素个数为$2^m$-1。因为生成元的幂是从0开始的，所以不重复的幂最大值为$2^m$-2。特别地：**$g^{2^m-1}$ &equiv;1**。</li>
+<li>生成元的幂按照mod{$2^m$-1}进行规范，本文$2^m$-1=7，即幂为9时相当于幂为2.</li>
+</ul>
+<h3 id="11、有限域GF-2-3-计算举例-p-x-x-3-x-1"><a href="#11、有限域GF-2-3-计算举例-p-x-x-3-x-1" class="headerlink" title="11、有限域GF($2^3$)计算举例(p(x)=$x^3$+x+1)"></a>11、有限域GF($2^3$)计算举例(p(x)=$x^3$+x+1)</h3><ul>
+<li>生成元g幂的性质：</li>
+</ul>
+<ol>
+<li>&forall;非零元素a &in;GF，&exist;k，使得a = $g^k$</li>
+<li>&forall;非零元素a,b&in;GF，若ab=1，则有$g^{k_1}$&dot;$g^{k_2}$=1，$k_1$$k_2$=$2^{m-1}$，其中a=$g^k$，b=$g^{k_2}$ ，$k_1$，$k_2$为<strong>恰当的数</strong>。Note：本条性质在求乘法逆元以及元素乘除运算时可以用到。例如7 = $g^5$ 那么7的乘法逆元为$g^2$=4。</li>
+</ol>
+<p>eg：</p>
+<p>​        3&oplus;5=（x+1）&oplus;($x^2$+1)=$x^2$+x=6</p>
+<p>​        2&ominus;7=x&ominus;($x^2$+x+1)=$x^2$+1=5</p>
+<p>​        6&bigotimes;5=($x^2$+x)&bigotimes;($x^2$+1)    ———–直接法：利用多项式计算</p>
+<p>​                =$x^4$+$x^3$+$x^2$+x(mod p(x))=x+1=3 </p>
+<p>​        6&bigotimes;5=($x^2$+x)&bigotimes;($x^2$+1)   ————间接法：利用幂运算并查表</p>
+<p>​                =$g^4$$g^6$=$g^{10}$=$g^3$=3   (查上述9的表   即$x^3$对应的值)</p>
+<p>​        4&oslash;7=4&bigotimes;$7^{-1}$=4&bigotimes;4=$x^2$&bigotimes;$x^2$     —-(7=$g^5$ $g^5$$g^2$=1 =&gt;$7^{-1}$=$g^2$=4)</p>
+<p>​                =$x^4$mod (p(x))=$x^2$+x =6</p>
+<p>​        4&oslash;7=$g^2$&div;$g^5$=$g^{-3}$=$g^4$=6</p>
+<p>上述内容参考的是<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Sa411A7na?share_source=copy_web">https://www.bilibili.com/video/BV1Sa411A7na?share_source=copy_web</a></p>
 
       
     </div>
