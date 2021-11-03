@@ -64,6 +64,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-peterson" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/11/03/peterson/" class="article-date">
+  <time datetime="2021-11-03T10:34:18.000Z" itemprop="datePublished">2021-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/11/03/peterson/">peterson</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Peterson算法"><a href="#Peterson算法" class="headerlink" title="Peterson算法"></a>Peterson算法</h1><h2 id="1-Peterson算法提出的背景"><a href="#1-Peterson算法提出的背景" class="headerlink" title="1.Peterson算法提出的背景"></a>1.Peterson算法提出的背景</h2><p>Peterson 算法是基于双线程互斥访问的LockOne与LockTwo算法而来。LockOne算法使用一个 flag 布尔数组，LockTwo 使用一个 turn的整型量，都实现了互斥，但是都存在死锁的可能。Peterson 算法把这两种算法结合起来，完美地用软件实现了双线程互斥问题。</p>
+<p>两个变量 flag[i] flag[j] </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Pi进程：                                                                    </span><br><span class="line">flag[i] = True;</span><br><span class="line"><span class="keyword">while</span>(flag[j]);</span><br><span class="line">critical section;<span class="comment">//临界区</span></span><br><span class="line">flag[i] = False;</span><br><span class="line">remainder section; </span><br><span class="line"></span><br><span class="line">Pj进程：                                                               </span><br><span class="line">flag[j] = True;</span><br><span class="line"><span class="keyword">while</span>(flag[i]);</span><br><span class="line">critical section; <span class="comment">//临界区</span></span><br><span class="line">flag[j] = False;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是实现两个进程互斥访问临界区的两段代码</p>
+<p>flag[i]为True 表示flag[i]想要进入临界区。</p>
+<p>while(flag[j])可以理解为。flag[i]在进入临界区前询问Pj是否想要进入临界区，如果Pj想进去的话Pi就等待（Pi品德高尚~）；类似的，Pj一样</p>
+<p>如果flag[i] flag[j]都为True。Pi Pj两个进程都会谦让，最终的结果是，两个进程都进不去临界区（可以想象一个生活场景，两个人同时想进屋，结果在门口谦让了半天，过了很久都没进去）</p>
+<h2 id="2-Peterson算法"><a href="#2-Peterson算法" class="headerlink" title="2.Peterson算法"></a>2.Peterson算法</h2><p>Peterson算法就是在上面代码的基础之上，又引入了一个变量turn，打破了这种因为谦让而导致“饥饿”的现象。下面我们先来看看Peterson算法的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Pi进程：                                                                   </span><br><span class="line">flag[i] = True;</span><br><span class="line">turn = j;</span><br><span class="line"><span class="keyword">while</span>(flag[j] &amp;&amp; turn == j);</span><br><span class="line">critical section;</span><br><span class="line">flag[i] = False;</span><br><span class="line">remainder section;</span><br><span class="line"></span><br><span class="line">Pj进程：                                                                   </span><br><span class="line">flag[j] = True;</span><br><span class="line">turn = i;</span><br><span class="line"><span class="keyword">while</span>(flag[i] &amp;&amp; turn == i);</span><br><span class="line">critical section;</span><br><span class="line">flag[j] = False;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p>引入了一个变量turn。怎么理解turn呢？</p>
+<p>可以把turn理解为轮到谁进入临界区了。举个例子：turn = i，表示轮到Pi进入临界区。</p>
+<p>下面的场景就变成，选询问对方进不进入临界区。</p>
+<ol>
+<li>如果对方不想进去，那该进程就直接进入临界区</li>
+<li>如果对方想进去，再看turn的值，轮到谁就谁进去</li>
+</ol>
+<p>这样就不会出现双方都‘谦让’而导致都进不去临界区的情况了！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/11/03/peterson/" data-id="ckvjesaco0000xgqn6gw5f6xo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/algorithm/" rel="tag noopener">algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-GaloisField" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/11/02/GaloisField/" class="article-date">
@@ -655,7 +712,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/21-day-topic/" rel="tag noopener">21_day_topic</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/Paper-Note/" rel="tag noopener">Paper_Note</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/audioprintfinger/" rel="tag noopener">audioprintfinger</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/encode/" rel="tag noopener">encode</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/regular-expression/" rel="tag noopener">regular expression</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/21-day-topic/" rel="tag noopener">21_day_topic</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/Paper-Note/" rel="tag noopener">Paper_Note</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/algorithm/" rel="tag noopener">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/audioprintfinger/" rel="tag noopener">audioprintfinger</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/encode/" rel="tag noopener">encode</a></li><li class="tag-list-item"><a class="tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/regular-expression/" rel="tag noopener">regular expression</a></li></ul>
     </div>
   </div>
 
@@ -665,7 +722,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/21-day-topic/" style="font-size: 20px;">21_day_topic</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/Paper-Note/" style="font-size: 10px;">Paper_Note</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/audioprintfinger/" style="font-size: 10px;">audioprintfinger</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/encode/" style="font-size: 10px;">encode</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/regular-expression/" style="font-size: 10px;">regular expression</a>
+      <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/21-day-topic/" style="font-size: 20px;">21_day_topic</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/Paper-Note/" style="font-size: 10px;">Paper_Note</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/audioprintfinger/" style="font-size: 10px;">audioprintfinger</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/encode/" style="font-size: 10px;">encode</a> <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/tags/regular-expression/" style="font-size: 10px;">regular expression</a>
     </div>
   </div>
 
@@ -687,6 +744,10 @@
       <ul>
         
           <li>
+            <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/11/03/peterson/">peterson</a>
+          </li>
+        
+          <li>
             <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/11/02/GaloisField/">GaloisField</a>
           </li>
         
@@ -700,10 +761,6 @@
         
           <li>
             <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/29/day-03/">day_03</a>
-          </li>
-        
-          <li>
-            <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/28/day-02/">day_02</a>
           </li>
         
       </ul>

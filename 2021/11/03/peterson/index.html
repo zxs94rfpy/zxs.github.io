@@ -5,19 +5,19 @@
   
 
   
-  <title>day_02 | Hexo</title>
+  <title>peterson | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="给定正整数 N ，我们按任何顺序（包括原始顺序）将数字重新排序，注意其前导数字不能为零。 如果我们可以通过上述方式得到 2 的幂，返回 true；否则，返回 false。 示例 1： 输入：1输出：true示例 2： 输入：10输出：false示例 3： 输入：16输出：true示例 4： 输入：24输出：false示例 5： 输入：46输出：true 提示： 1 &lt;&#x3D; N &lt;&#x3D; 10">
+  <meta name="description" content="Peterson算法1.Peterson算法提出的背景Peterson 算法是基于双线程互斥访问的LockOne与LockTwo算法而来。LockOne算法使用一个 flag 布尔数组，LockTwo 使用一个 turn的整型量，都实现了互斥，但是都存在死锁的可能。Peterson 算法把这两种算法结合起来，完美地用软件实现了双线程互斥问题。 两个变量 flag[i] flag[j]  12345">
 <meta property="og:type" content="article">
-<meta property="og:title" content="day_02">
-<meta property="og:url" content="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/10/28/day-02/index.html">
+<meta property="og:title" content="peterson">
+<meta property="og:url" content="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/11/03/peterson/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="给定正整数 N ，我们按任何顺序（包括原始顺序）将数字重新排序，注意其前导数字不能为零。 如果我们可以通过上述方式得到 2 的幂，返回 true；否则，返回 false。 示例 1： 输入：1输出：true示例 2： 输入：10输出：false示例 3： 输入：16输出：true示例 4： 输入：24输出：false示例 5： 输入：46输出：true 提示： 1 &lt;&#x3D; N &lt;&#x3D; 10">
+<meta property="og:description" content="Peterson算法1.Peterson算法提出的背景Peterson 算法是基于双线程互斥访问的LockOne与LockTwo算法而来。LockOne算法使用一个 flag 布尔数组，LockTwo 使用一个 turn的整型量，都实现了互斥，但是都存在死锁的可能。Peterson 算法把这两种算法结合起来，完美地用软件实现了双线程互斥问题。 两个变量 flag[i] flag[j]  12345">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-28T14:02:03.000Z">
-<meta property="article:modified_time" content="2021-10-28T14:24:53.979Z">
+<meta property="article:published_time" content="2021-11-03T10:34:18.000Z">
+<meta property="article:modified_time" content="2021-11-03T11:00:12.973Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="21_day_topic">
+<meta property="article:tag" content="algorithm">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="https://zxs94rfpy.github.io/atom.xml" title="Hexo" type="application/atom+xml">
@@ -67,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-day-02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-peterson" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/28/day-02/" class="article-date">
-  <time datetime="2021-10-28T14:02:03.000Z" itemprop="datePublished">2021-10-28</time>
+    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/11/03/peterson/" class="article-date">
+  <time datetime="2021-11-03T10:34:18.000Z" itemprop="datePublished">2021-11-03</time>
 </a>
     
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      day_02
+      peterson
     </h1>
   
 
@@ -89,25 +89,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>给定正整数 N ，我们按任何顺序（包括原始顺序）将数字重新排序，注意其前导数字不能为零。</p>
-<p>如果我们可以通过上述方式得到 2 的幂，返回 true；否则，返回 false。</p>
-<p>示例 1：</p>
-<p>输入：1<br>输出：true<br>示例 2：</p>
-<p>输入：10<br>输出：false<br>示例 3：</p>
-<p>输入：16<br>输出：true<br>示例 4：</p>
-<p>输入：24<br>输出：false<br>示例 5：</p>
-<p>输入：46<br>输出：true</p>
-<p>提示：</p>
-<p>1 &lt;= N &lt;= 10^9</p>
-<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reordered-power-of-2">https://leetcode-cn.com/problems/reordered-power-of-2</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+        <h1 id="Peterson算法"><a href="#Peterson算法" class="headerlink" title="Peterson算法"></a>Peterson算法</h1><h2 id="1-Peterson算法提出的背景"><a href="#1-Peterson算法提出的背景" class="headerlink" title="1.Peterson算法提出的背景"></a>1.Peterson算法提出的背景</h2><p>Peterson 算法是基于双线程互斥访问的LockOne与LockTwo算法而来。LockOne算法使用一个 flag 布尔数组，LockTwo 使用一个 turn的整型量，都实现了互斥，但是都存在死锁的可能。Peterson 算法把这两种算法结合起来，完美地用软件实现了双线程互斥问题。</p>
+<p>两个变量 flag[i] flag[j] </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Pi进程：                                                                    </span><br><span class="line">flag[i] = True;</span><br><span class="line"><span class="keyword">while</span>(flag[j]);</span><br><span class="line">critical section;<span class="comment">//临界区</span></span><br><span class="line">flag[i] = False;</span><br><span class="line">remainder section; </span><br><span class="line"></span><br><span class="line">Pj进程：                                                               </span><br><span class="line">flag[j] = True;</span><br><span class="line"><span class="keyword">while</span>(flag[i]);</span><br><span class="line">critical section; <span class="comment">//临界区</span></span><br><span class="line">flag[j] = False;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是实现两个进程互斥访问临界区的两段代码</p>
+<p>flag[i]为True 表示flag[i]想要进入临界区。</p>
+<p>while(flag[j])可以理解为。flag[i]在进入临界区前询问Pj是否想要进入临界区，如果Pj想进去的话Pi就等待（Pi品德高尚~）；类似的，Pj一样</p>
+<p>如果flag[i] flag[j]都为True。Pi Pj两个进程都会谦让，最终的结果是，两个进程都进不去临界区（可以想象一个生活场景，两个人同时想进屋，结果在门口谦让了半天，过了很久都没进去）</p>
+<h2 id="2-Peterson算法"><a href="#2-Peterson算法" class="headerlink" title="2.Peterson算法"></a>2.Peterson算法</h2><p>Peterson算法就是在上面代码的基础之上，又引入了一个变量turn，打破了这种因为谦让而导致“饥饿”的现象。下面我们先来看看Peterson算法的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Pi进程：                                                                   </span><br><span class="line">flag[i] = True;</span><br><span class="line">turn = j;</span><br><span class="line"><span class="keyword">while</span>(flag[j] &amp;&amp; turn == j);</span><br><span class="line">critical section;</span><br><span class="line">flag[i] = False;</span><br><span class="line">remainder section;</span><br><span class="line"></span><br><span class="line">Pj进程：                                                                   </span><br><span class="line">flag[j] = True;</span><br><span class="line">turn = i;</span><br><span class="line"><span class="keyword">while</span>(flag[i] &amp;&amp; turn == i);</span><br><span class="line">critical section;</span><br><span class="line">flag[j] = False;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p>引入了一个变量turn。怎么理解turn呢？</p>
+<p>可以把turn理解为轮到谁进入临界区了。举个例子：turn = i，表示轮到Pi进入临界区。</p>
+<p>下面的场景就变成，选询问对方进不进入临界区。</p>
+<ol>
+<li>如果对方不想进去，那该进程就直接进入临界区</li>
+<li>如果对方想进去，再看turn的值，轮到谁就谁进去</li>
+</ol>
+<p>这样就不会出现双方都‘谦让’而导致都进不去临界区的情况了！</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/10/28/day-02/" data-id="ckvb17t040000bsqnaeit6yj7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/zxs94rfpy/zxs94rfpy.github.io.git/2021/11/03/peterson/" data-id="ckvjesaco0000xgqn6gw5f6xo" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/21-day-topic/" rel="tag noopener">21_day_topic</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" target="_blank" href="https://zxs94rfpy.github.io/tags/algorithm/" rel="tag noopener">algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -115,19 +123,10 @@
     
 <nav id="article-nav">
   
-    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/29/day-03/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          day_03
-        
-      </div>
-    </a>
   
-  
-    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/10/14/re-md/" id="article-nav-older" class="article-nav-link-wrap">
+    <a target="_blank" rel="noopener" href="https://zxs94rfpy.github.io/2021/11/02/GaloisField/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">re.md</div>
+      <div class="article-nav-title">GaloisField</div>
     </a>
   
 </nav>
